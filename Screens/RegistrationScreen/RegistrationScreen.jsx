@@ -1,25 +1,23 @@
 import React from "react";
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
   TouchableHighlight,
   View,
-  Dimensions,
 } from "react-native";
 import ButtonComponent from "../../Components/Button";
-
-const { screenWidth, screenHeight } = Dimensions.get("window");
-const left = Number(screenWidth / 2);
+import SvgAvatarAdd from "../../assets/icons/add.svg";
 
 const RegistrationScreen = () => {
   return (
     <>
       <View style={styles.background} />
       <View style={styles.registerPage}>
-        <View style={styles.avatar}></View>
-        <View >
+        <View style={styles.avatar}>
+          <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
+        </View>
+        <View>
           <Text style={styles.textHeading}>Реєстрація</Text>
           <TextInput
             style={[styles.textInput, { marginTop: 33 }]}
@@ -35,6 +33,7 @@ const RegistrationScreen = () => {
               secureTextEntry={true}
               placeholder="Пароль"
             />
+
             <TouchableHighlight style={styles.passwordShowBox}>
               <Text style={styles.passwordShowText}>Показати</Text>
             </TouchableHighlight>
@@ -68,6 +67,12 @@ const styles = StyleSheet.create({
     height: 120,
     top: -60,
     borderRadius: 16,
+  },
+
+  avatarSvg: {
+    position: "absolute",
+    bottom: 14,
+    right: -12,
   },
 
   textHeading: {

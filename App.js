@@ -1,5 +1,9 @@
 import React from "react";
-import { StyleSheet, View, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+} from "react-native";
 import RegistrationScreen from "./Screens/RegistrationScreen/RegistrationScreen";
 import { useFonts } from "expo-font";
 
@@ -18,7 +22,7 @@ const App = () => {
     return (
       <View style={styles.container}>
         <ImageBackground
-          source={require("./images/background.jpg")}
+          source={require("./assets/images/background.jpg")}
           resizeMode="cover"
           style={styles.backgroundImage}
         >
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
-  backgroundImage: { flex: 1, justifyContent: "center" },
+  backgroundImage: { flex: 1.5, justifyContent: "center" },
 });
 
 export default App;
