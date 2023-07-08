@@ -12,12 +12,10 @@ import SvgAvatarAdd from "../../assets/icons/add.svg";
 const RegistrationScreen = () => {
   return (
     <>
-      <View style={styles.background} />
       <View style={styles.registerPage}>
-        <View style={styles.avatar}>
-          <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
-        </View>
-        <View>
+          <View style={styles.avatar}>
+            <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
+          </View>
           <Text style={styles.textHeading}>Реєстрація</Text>
           <TextInput
             style={[styles.textInput, { marginTop: 33 }]}
@@ -40,23 +38,19 @@ const RegistrationScreen = () => {
           </View>
           <ButtonComponent title="Зареєструватися" />
           <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
-        </View>
       </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1.5,
-  },
-
   registerPage: {
-    flex: 3,
+    flex: 1,
     padding: 16,
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    justifyContent: "flex-end",
   },
 
   avatar: {

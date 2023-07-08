@@ -3,6 +3,9 @@ import {
   StyleSheet,
   View,
   ImageBackground,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import RegistrationScreen from "./Screens/RegistrationScreen/RegistrationScreen";
 import { useFonts } from "expo-font";
@@ -20,15 +23,21 @@ const App = () => {
 
   {
     return (
-      <View style={styles.container}>
+      <>
         <ImageBackground
           source={require("./assets/images/background.jpg")}
           resizeMode="cover"
           style={styles.backgroundImage}
         >
-          <RegistrationScreen />
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView style={styles.container}>
+              <View style={styles.screenWrapper}>
+                <RegistrationScreen />
+              </View>
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
         </ImageBackground>
-      </View>
+      </>
     );
   }
 };
@@ -36,9 +45,16 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
+    justifyContent: "flex-end",
   },
-  backgroundImage: { flex: 1.5, justifyContent: "center" },
+
+  screenWrapper: {
+    flex: 0.67,
+  },
+
+  backgroundImage: {
+    flex: 1,
+  },
 });
 
 export default App;
