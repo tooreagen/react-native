@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,20 @@ import ButtonComponent from "../../Components/Button";
 import SvgAvatarAdd from "../../assets/icons/add.svg";
 
 const RegistrationScreen = () => {
+  const [focusedFields, setFocusedFields] = useState({
+    login: false,
+    email: false,
+    password: false,
+  });
+
+  const handleFocus = (field) => {
+    setFocusedFields({ [field]: true });
+  };
+
+  const handleBlur = (field) => {
+    setFocusedFields({ [field]: false });
+  };
+
   return (
     <View style={styles.registerPage}>
       <View style={styles.avatar}>
@@ -17,18 +31,35 @@ const RegistrationScreen = () => {
       </View>
       <Text style={styles.textHeading}>Реєстрація</Text>
       <TextInput
-        style={[styles.textInput, { marginTop: 33 }]}
+        style={[
+          styles.textInput,
+          focusedFields.login && styles.textInputFocused,
+          { marginTop: 33 },
+        ]}
         placeholder="Логін"
+        onFocus={() => handleFocus("login")}
+        onBlur={() => handleBlur("login")}
       />
       <TextInput
-        style={[styles.textInput, { marginTop: 16, marginBottom: 16 }]}
+        style={[
+          styles.textInput,
+          focusedFields.email && styles.textInputFocused,
+          { marginTop: 16, marginBottom: 16 },
+        ]}
         placeholder="Адреса електронної пошти"
+        onFocus={() => handleFocus("email")}
+        onBlur={() => handleBlur("email")}
       />
       <View style={styles.passwordInputBox}>
         <TextInput
-          style={styles.textInput}
+          style={[
+            styles.textInput,
+            focusedFields.password && styles.textInputFocused,
+          ]}
           secureTextEntry={true}
           placeholder="Пароль"
+          onFocus={() => handleFocus("password")}
+          onBlur={() => handleBlur("password")}
         />
 
         <TouchableHighlight style={styles.passwordShowBox}>
@@ -87,6 +118,11 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderRadius: 8,
+  },
+
+  textInputFocused: {
+    borderColor: "#FF6C00",
+    borderWidth: 1,
   },
 
   passwordInputBox: {

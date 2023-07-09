@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   ImageBackground,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
@@ -29,9 +28,7 @@ const App = () => {
             source={require("./assets/images/background.jpg")}
             style={styles.backgroundImage}
           >
-            <KeyboardAvoidingView>
               <RegistrationScreen />
-            </KeyboardAvoidingView>
           </ImageBackground>
         </View>
       </TouchableWithoutFeedback>
