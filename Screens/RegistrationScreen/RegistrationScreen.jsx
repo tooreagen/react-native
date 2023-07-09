@@ -11,41 +11,38 @@ import SvgAvatarAdd from "../../assets/icons/add.svg";
 
 const RegistrationScreen = () => {
   return (
-    <>
-      <View style={styles.registerPage}>
-          <View style={styles.avatar}>
-            <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
-          </View>
-          <Text style={styles.textHeading}>Реєстрація</Text>
-          <TextInput
-            style={[styles.textInput, { marginTop: 33 }]}
-            placeholder="Логін"
-          />
-          <TextInput
-            style={[styles.textInput, { marginTop: 16, marginBottom: 16 }]}
-            placeholder="Адреса електронної пошти"
-          />
-          <View style={styles.passwordInputBox}>
-            <TextInput
-              style={styles.textInput}
-              secureTextEntry={true}
-              placeholder="Пароль"
-            />
-
-            <TouchableHighlight style={styles.passwordShowBox}>
-              <Text style={styles.passwordShowText}>Показати</Text>
-            </TouchableHighlight>
-          </View>
-          <ButtonComponent title="Зареєструватися" />
-          <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
+    <View style={styles.registerPage}>
+      <View style={styles.avatar}>
+        <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
       </View>
-    </>
+      <Text style={styles.textHeading}>Реєстрація</Text>
+      <TextInput
+        style={[styles.textInput, { marginTop: 33 }]}
+        placeholder="Логін"
+      />
+      <TextInput
+        style={[styles.textInput, { marginTop: 16, marginBottom: 16 }]}
+        placeholder="Адреса електронної пошти"
+      />
+      <View style={styles.passwordInputBox}>
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true}
+          placeholder="Пароль"
+        />
+
+        <TouchableHighlight style={styles.passwordShowBox}>
+          <Text style={styles.passwordShowText}>Показати</Text>
+        </TouchableHighlight>
+      </View>
+      <ButtonComponent title="Зареєструватися" />
+      <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   registerPage: {
-    flex: 1,
     padding: 16,
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,

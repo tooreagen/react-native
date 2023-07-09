@@ -23,21 +23,18 @@ const App = () => {
 
   {
     return (
-      <>
-        <ImageBackground
-          source={require("./assets/images/background.jpg")}
-          resizeMode="cover"
-          style={styles.backgroundImage}
-        >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView style={styles.container}>
-              <View style={styles.screenWrapper}>
-                <RegistrationScreen />
-              </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={require("./assets/images/background.jpg")}
+            style={styles.backgroundImage}
+          >
+            <KeyboardAvoidingView>
+              <RegistrationScreen />
             </KeyboardAvoidingView>
-          </TouchableWithoutFeedback>
-        </ImageBackground>
-      </>
+          </ImageBackground>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 };
@@ -45,15 +42,11 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
-  },
-
-  screenWrapper: {
-    flex: 0.67,
   },
 
   backgroundImage: {
     flex: 1,
+    justifyContent: "flex-end",
   },
 });
 
