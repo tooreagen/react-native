@@ -36,6 +36,7 @@ const LoginScreen = () => {
         onFocus={() => handleFocus("email")}
         onBlur={() => handleBlur("email")}
       />
+      
       <View style={styles.passwordInputBox}>
         <TextInput
           style={[
@@ -52,11 +53,11 @@ const LoginScreen = () => {
           <Text style={styles.passwordShowText}>Показати</Text>
         </TouchableOpacity>
       </View>
-      
+
       <ButtonComponent title="Увійти" />
 
-      <Text style={styles.signInText}>
-        Немає акаунту?
+      <View style={styles.bottomText}>
+        <Text style={styles.signInText}>Немає акаунту?{" "}</Text>
         <TouchableOpacity activeOpacity={0.5}>
           <Text
             style={[styles.signInText, { textDecorationLine: "underline" }]}
@@ -64,7 +65,7 @@ const LoginScreen = () => {
             Зареєструватися
           </Text>
         </TouchableOpacity>
-      </Text>
+      </View>
     </View>
   );
 };
@@ -132,12 +133,14 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 16,
   },
+
   passwordShowText: {
     fontFamily: "RobotoRegular",
     fontSize: 16,
     lineHeight: 19,
     color: "#1b4371",
   },
+
   signInText: {
     marginTop: 16,
     textAlign: "center",
@@ -145,6 +148,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#1b4371",
+  },
+
+  bottomText: {
+    flexDirection: "row",
+    alignSelf: "center",
   },
 });
 
