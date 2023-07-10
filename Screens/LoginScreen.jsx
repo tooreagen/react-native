@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableHighlight,
   View,
   TouchableOpacity,
 } from "react-native";
@@ -36,7 +35,7 @@ const LoginScreen = () => {
         onFocus={() => handleFocus("email")}
         onBlur={() => handleBlur("email")}
       />
-      
+
       <View style={styles.passwordInputBox}>
         <TextInput
           style={[
