@@ -6,8 +6,8 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import ButtonComponent from "../../Components/Button";
-import SvgAvatarAdd from "../../assets/icons/add.svg";
+import ButtonComponent from "../Components/Button";
+import SvgAvatarAdd from "../assets/icons/add.svg";
 
 const RegistrationScreen = () => {
   const [focusedFields, setFocusedFields] = useState({

@@ -6,8 +6,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import RegistrationScreen from "./Screens/RegistrationScreen/RegistrationScreen";
+import RegistrationScreen from "./Screens/RegistrationScreen";
 import { useFonts } from "expo-font";
+import LoginScreen from "./Screens/LoginScreen";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,8 @@ const App = () => {
             source={require("./assets/images/background.jpg")}
             style={styles.backgroundImage}
           >
-              <RegistrationScreen />
+            {/* <RegistrationScreen /> */}
+            <LoginScreen/>
           </ImageBackground>
         </View>
       </TouchableWithoutFeedback>
