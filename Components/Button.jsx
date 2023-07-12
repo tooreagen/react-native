@@ -2,14 +2,21 @@ import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
 const ButtonComponent = (props) => {
-  const { title, style } = props;
+  const { title, style, disabled } = props;
   return (
     <TouchableOpacity
-      style={[styles.button, style]}
+      style={[
+        styles.button,
+        disabled && { backgroundColor: "#f6f6f6" },
+        style,
+      ]}
+      disabled={disabled}
       activeOpacity={0.5}
       onPress={props.onPress}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={[styles.text, disabled && { color: "#bdbdbd" }]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -20,6 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6C00",
     borderRadius: 100,
   },
+
   text: {
     textAlign: "center",
     fontFamily: "RobotoRegular",

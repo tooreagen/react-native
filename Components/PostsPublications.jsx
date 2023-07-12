@@ -8,9 +8,9 @@ import {
   Image,
 } from "react-native";
 import SvgLogOut from "../assets/icons/log-out.svg";
-import FeatherIconGrid from "../assets/icons/feather-icon-grid.svg";
-import FeatherIconUser from "../assets/icons/feather-icon-user.svg";
-import ToolbarButtonNew from "../assets/icons/toolbar-button-new.svg";
+import SvgFeatherIconGrid from "../assets/icons/feather-icon-grid.svg";
+import SvgFeatherIconUser from "../assets/icons/feather-icon-user.svg";
+import SvgToolbarButtonNew from "../assets/icons/toolbar-button-new.svg";
 
 const PostsPublications = () => {
   return (
@@ -34,15 +34,15 @@ const PostsPublications = () => {
 
       <View style={styles.toolBar}>
         <TouchableOpacity activeOpacity={0.5}>
-          <FeatherIconGrid width={24} height={24} />
+          <SvgFeatherIconGrid width={24} height={24} />
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.5}>
-          <ToolbarButtonNew />
+          <SvgToolbarButtonNew />
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.5}>
-          <FeatherIconUser width={24} height={24} />
+          <SvgFeatherIconUser width={24} height={24} />
         </TouchableOpacity>
       </View>
     </View>
