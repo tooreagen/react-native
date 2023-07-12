@@ -9,6 +9,7 @@ import {
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import { useFonts } from "expo-font";
 import LoginScreen from "./Screens/LoginScreen";
+import PostsScreen from "./Screens/PostsScreen";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,8 @@ const App = () => {
             style={styles.backgroundImage}
           >
             {/* <RegistrationScreen /> */}
-            <LoginScreen/>
+            {/* <LoginScreen/> */}
+            <PostsScreen/>
           </ImageBackground>
         </View>
       </TouchableWithoutFeedback>
