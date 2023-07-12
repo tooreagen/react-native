@@ -5,8 +5,8 @@ import PostsPublicationsCreate from "../Components/PostsPublicationsCreate";
 const PostsScreen = () => {
   return (
     <>
-      {/* <PostsPublications /> */}
-      <PostsPublicationsCreate/>
+      <PostsPublications />
+      {/* <PostsPublicationsCreate/> */}
     </>
   );
 };

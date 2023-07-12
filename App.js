@@ -30,9 +30,9 @@ const App = () => {
             source={require("./assets/images/background.jpg")}
             style={styles.backgroundImage}
           >
-            {/* <RegistrationScreen /> */}
+            <RegistrationScreen />
             {/* <LoginScreen/> */}
-            <PostsScreen/>
+            {/* <PostsScreen/> */}
           </ImageBackground>
         </View>
       </TouchableWithoutFeedback>
