@@ -30,8 +30,8 @@ const App = () => {
             source={require("./assets/images/background.jpg")}
             style={styles.backgroundImage}
           >
-            <RegistrationScreen />
-            {/* <LoginScreen/> */}
+            {/* <RegistrationScreen /> */}
+            <LoginScreen/>
             {/* <PostsScreen/> */}
           </ImageBackground>
         </View>

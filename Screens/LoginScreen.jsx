@@ -18,6 +18,7 @@ const LoginScreen = () => {
   const initialState = { email: "", password: "" };
 
   const [userData, setUserData] = useState(initialState);
+  const [passHide, setPassHide] = useState(true);
 
   const handleFocus = (field) => {
     setFocusedFields({ [field]: true });
@@ -30,7 +31,12 @@ const LoginScreen = () => {
   const onLogin = () => {
     console.log(userData);
     setUserData(initialState);
+    setPassHide(true);
     Keyboard.dismiss();
+  };
+
+  const onPassHide = () => {
+    setPassHide(!passHide);
   };
 
   return (
@@ -61,14 +67,20 @@ const LoginScreen = () => {
             styles.textInput,
             focusedFields.password && styles.textInputFocused,
           ]}
-          secureTextEntry={true}
+          secureTextEntry={passHide}
           placeholder="Пароль"
           onFocus={() => handleFocus("password")}
           onBlur={() => handleBlur("password")}
         />
 
-        <TouchableOpacity style={styles.passwordShowBox} activeOpacity={0.5}>
-          <Text style={styles.passwordShowText}>Показати</Text>
+        <TouchableOpacity
+          style={styles.passwordShowBox}
+          activeOpacity={0.5}
+          onPress={onPassHide}
+        >
+          <Text style={styles.passwordShowText}>
+            {passHide ? "Показати" : "Сховати"}
+          </Text>
         </TouchableOpacity>
       </View>
 
