@@ -17,9 +17,9 @@ const RegistrationScreen = () => {
     password: false,
   });
 
-  const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const initialState = { login: "", email: "", password: "" };
+
+  const [userData, setUserData] = useState(initialState);
 
   const handleFocus = (field) => {
     setFocusedFields({ [field]: true });
@@ -30,10 +30,8 @@ const RegistrationScreen = () => {
   };
 
   const onRegister = () => {
-    console.log({ login, password, email });
-    setLogin("");
-    setEmail("");
-    setPassword("");
+    console.log(userData);
+    setUserData(initialState);
     Keyboard.dismiss();
   };
 
@@ -44,8 +42,10 @@ const RegistrationScreen = () => {
       </View>
       <Text style={styles.textHeading}>Реєстрація</Text>
       <TextInput
-        value={login}
-        onChangeText={setLogin}
+        value={userData.login}
+        onChangeText={(value) =>
+          setUserData((prevState) => ({ ...prevState, login: value }))
+        }
         style={[
           styles.textInput,
           focusedFields.login && styles.textInputFocused,
@@ -56,8 +56,10 @@ const RegistrationScreen = () => {
         onBlur={() => handleBlur("login")}
       />
       <TextInput
-        value={email}
-        onChangeText={setEmail}
+        value={userData.email}
+        onChangeText={(value) =>
+          setUserData((prevState) => ({ ...prevState, email: value }))
+        }
         style={[
           styles.textInput,
           focusedFields.email && styles.textInputFocused,
@@ -69,8 +71,10 @@ const RegistrationScreen = () => {
       />
       <View style={styles.passwordInputBox}>
         <TextInput
-          value={password}
-          onChangeText={setPassword}
+          value={userData.password}
+          onChangeText={(value) =>
+            setUserData((prevState) => ({ ...prevState, password: value }))
+          }
           style={[
             styles.textInput,
             focusedFields.password && styles.textInputFocused,

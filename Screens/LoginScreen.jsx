@@ -15,8 +15,9 @@ const LoginScreen = () => {
     password: false,
   });
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const initialState = { email: "", password: "" };
+
+  const [userData, setUserData] = useState(initialState);
 
   const handleFocus = (field) => {
     setFocusedFields({ [field]: true });
@@ -27,9 +28,8 @@ const LoginScreen = () => {
   };
 
   const onLogin = () => {
-    console.log({ password, email });
-    setEmail("");
-    setPassword("");
+    console.log(userData);
+    setUserData(initialState);
     Keyboard.dismiss();
   };
 
@@ -37,8 +37,10 @@ const LoginScreen = () => {
     <View style={styles.loginPage}>
       <Text style={styles.textHeading}>Увійти</Text>
       <TextInput
-        value={email}
-        onChangeText={setEmail}
+        value={userData.email}
+        onChangeText={(value) =>
+          setUserData((prevState) => ({ ...prevState, email: value }))
+        }
         style={[
           styles.textInput,
           focusedFields.email && styles.textInputFocused,
@@ -51,8 +53,10 @@ const LoginScreen = () => {
 
       <View style={styles.passwordInputBox}>
         <TextInput
-          value={password}
-          onChangeText={setPassword}
+          value={userData.password}
+          onChangeText={(value) =>
+            setUserData((prevState) => ({ ...prevState, password: value }))
+          }
           style={[
             styles.textInput,
             focusedFields.password && styles.textInputFocused,
