@@ -3,8 +3,9 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableHighlight,
   View,
+  TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import ButtonComponent from "../Components/Button";
 import SvgAvatarAdd from "../assets/icons/add.svg";
@@ -16,12 +17,24 @@ const RegistrationScreen = () => {
     password: false,
   });
 
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleFocus = (field) => {
     setFocusedFields({ [field]: true });
   };
 
   const handleBlur = (field) => {
     setFocusedFields({ [field]: false });
+  };
+
+  const onRegister = () => {
+    console.log({ login, password, email });
+    setLogin("");
+    setEmail("");
+    setPassword("");
+    Keyboard.dismiss();
   };
 
   return (
@@ -31,6 +44,8 @@ const RegistrationScreen = () => {
       </View>
       <Text style={styles.textHeading}>Реєстрація</Text>
       <TextInput
+        value={login}
+        onChangeText={setLogin}
         style={[
           styles.textInput,
           focusedFields.login && styles.textInputFocused,
@@ -41,6 +56,8 @@ const RegistrationScreen = () => {
         onBlur={() => handleBlur("login")}
       />
       <TextInput
+        value={email}
+        onChangeText={setEmail}
         style={[
           styles.textInput,
           focusedFields.email && styles.textInputFocused,
@@ -52,6 +69,8 @@ const RegistrationScreen = () => {
       />
       <View style={styles.passwordInputBox}>
         <TextInput
+          value={password}
+          onChangeText={setPassword}
           style={[
             styles.textInput,
             focusedFields.password && styles.textInputFocused,
@@ -62,12 +81,14 @@ const RegistrationScreen = () => {
           onBlur={() => handleBlur("password")}
         />
 
-        <TouchableHighlight style={styles.passwordShowBox}>
+        <TouchableOpacity style={styles.passwordShowBox}>
           <Text style={styles.passwordShowText}>Показати</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
-      <ButtonComponent title="Зареєструватися" />
-      <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
+      <ButtonComponent title="Зареєструватися" onPress={onRegister} />
+      <TouchableOpacity activeOpacity={0.5}>
+        <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
+      </TouchableOpacity>
     </View>
   );
 };

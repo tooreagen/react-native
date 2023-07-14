@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import ButtonComponent from "../Components/Button";
 
@@ -14,6 +15,9 @@ const LoginScreen = () => {
     password: false,
   });
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleFocus = (field) => {
     setFocusedFields({ [field]: true });
   };
@@ -22,10 +26,19 @@ const LoginScreen = () => {
     setFocusedFields({ [field]: false });
   };
 
+  const onLogin = () => {
+    console.log({ password, email });
+    setEmail("");
+    setPassword("");
+    Keyboard.dismiss();
+  };
+
   return (
     <View style={styles.loginPage}>
       <Text style={styles.textHeading}>Увійти</Text>
       <TextInput
+        value={email}
+        onChangeText={setEmail}
         style={[
           styles.textInput,
           focusedFields.email && styles.textInputFocused,
@@ -38,6 +51,8 @@ const LoginScreen = () => {
 
       <View style={styles.passwordInputBox}>
         <TextInput
+          value={password}
+          onChangeText={setPassword}
           style={[
             styles.textInput,
             focusedFields.password && styles.textInputFocused,
@@ -53,10 +68,10 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <ButtonComponent title="Увійти" />
+      <ButtonComponent title="Увійти" onPress={onLogin} />
 
       <View style={styles.bottomText}>
-        <Text style={styles.signInText}>Немає акаунту?{" "}</Text>
+        <Text style={styles.signInText}>Немає акаунту? </Text>
         <TouchableOpacity activeOpacity={0.5}>
           <Text
             style={[styles.signInText, { textDecorationLine: "underline" }]}
