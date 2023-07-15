@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Keyboard,
+  KeyboardAvoidingView,
 } from "react-native";
 import ButtonComponent from "../Components/Button";
 
@@ -42,62 +43,70 @@ const LoginScreen = () => {
   return (
     <View style={styles.loginPage}>
       <Text style={styles.textHeading}>Увійти</Text>
-      <TextInput
-        value={userData.email}
-        onChangeText={(value) =>
-          setUserData((prevState) => ({ ...prevState, email: value }))
-        }
-        style={[
-          styles.textInput,
-          focusedFields.email && styles.textInputFocused,
-          { marginTop: 16, marginBottom: 16 },
-        ]}
-        placeholder="Адреса електронної пошти"
-        placeholderTextColor={"#bdbdbd"}
-        onFocus={() => handleFocus("email")}
-        onBlur={() => handleBlur("email")}
-      />
 
-      <View style={styles.passwordInputBox}>
+      <KeyboardAvoidingView
+        behavior={"height"}
+        style={{
+          marginBottom: (focusedFields.email || focusedFields.password) && -110,
+        }}
+      >
         <TextInput
-          value={userData.password}
+          value={userData.email}
           onChangeText={(value) =>
-            setUserData((prevState) => ({ ...prevState, password: value }))
+            setUserData((prevState) => ({ ...prevState, email: value }))
           }
           style={[
             styles.textInput,
-            focusedFields.password && styles.textInputFocused,
+            focusedFields.email && styles.textInputFocused,
+            { marginTop: 16, marginBottom: 16 },
           ]}
-          secureTextEntry={passHide}
-          placeholder="Пароль"
+          placeholder="Адреса електронної пошти"
           placeholderTextColor={"#bdbdbd"}
-          onFocus={() => handleFocus("password")}
-          onBlur={() => handleBlur("password")}
+          onFocus={() => handleFocus("email")}
+          onBlur={() => handleBlur("email")}
         />
 
-        <TouchableOpacity
-          style={styles.passwordShowBox}
-          activeOpacity={0.5}
-          onPress={onPassHide}
-        >
-          <Text style={styles.passwordShowText}>
-            {passHide ? "Показати" : "Сховати"}
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.passwordInputBox}>
+          <TextInput
+            value={userData.password}
+            onChangeText={(value) =>
+              setUserData((prevState) => ({ ...prevState, password: value }))
+            }
+            style={[
+              styles.textInput,
+              focusedFields.password && styles.textInputFocused,
+            ]}
+            secureTextEntry={passHide}
+            placeholder="Пароль"
+            placeholderTextColor={"#bdbdbd"}
+            onFocus={() => handleFocus("password")}
+            onBlur={() => handleBlur("password")}
+          />
 
-      <ButtonComponent title="Увійти" onPress={onLogin} />
-
-      <View style={styles.bottomText}>
-        <Text style={styles.signInText}>Немає акаунту? </Text>
-        <TouchableOpacity activeOpacity={0.5}>
-          <Text
-            style={[styles.signInText, { textDecorationLine: "underline" }]}
+          <TouchableOpacity
+            style={styles.passwordShowBox}
+            activeOpacity={0.5}
+            onPress={onPassHide}
           >
-            Зареєструватися
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Text style={styles.passwordShowText}>
+              {passHide ? "Показати" : "Сховати"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <ButtonComponent title="Увійти" onPress={onLogin} />
+
+        <View style={styles.bottomText}>
+          <Text style={styles.signInText}>Немає акаунту? </Text>
+          <TouchableOpacity activeOpacity={0.5}>
+            <Text
+              style={[styles.signInText, { textDecorationLine: "underline" }]}
+            >
+              Зареєструватися
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -109,22 +118,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     justifyContent: "flex-end",
-  },
-
-  avatar: {
-    position: "absolute",
-    alignSelf: "center",
-    backgroundColor: "#f6f6f6",
-    width: 120,
-    height: 120,
-    top: -60,
-    borderRadius: 16,
-  },
-
-  avatarSvg: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
   },
 
   textHeading: {

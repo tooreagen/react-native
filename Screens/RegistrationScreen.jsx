@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Keyboard,
+  KeyboardAvoidingView,
 } from "react-native";
 import ButtonComponent from "../Components/Button";
 import SvgAvatarAdd from "../assets/icons/add.svg";
@@ -47,67 +48,70 @@ const RegistrationScreen = () => {
         <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
       </View>
       <Text style={styles.textHeading}>Реєстрація</Text>
-      <TextInput
-        value={userData.login}
-        onChangeText={(value) =>
-          setUserData((prevState) => ({ ...prevState, login: value }))
-        }
-        style={[
-          styles.textInput,
-          focusedFields.login && styles.textInputFocused,
-          { marginTop: 33 },
-        ]}
-        placeholder="Логін"
-        placeholderTextColor={"#bdbdbd"}
-        onFocus={() => handleFocus("login")}
-        onBlur={() => handleBlur("login")}
-      />
-      <TextInput
-        value={userData.email}
-        onChangeText={(value) =>
-          setUserData((prevState) => ({ ...prevState, email: value }))
-        }
-        style={[
-          styles.textInput,
-          focusedFields.email && styles.textInputFocused,
-          { marginTop: 16, marginBottom: 16 },
-        ]}
-        placeholder="Адреса електронної пошти"
-        placeholderTextColor={"#bdbdbd"}
-        onFocus={() => handleFocus("email")}
-        onBlur={() => handleBlur("email")}
-      />
-      <View style={styles.passwordInputBox}>
+
+      <KeyboardAvoidingView behavior={"height"}>
         <TextInput
-          value={userData.password}
+          value={userData.login}
           onChangeText={(value) =>
-            setUserData((prevState) => ({ ...prevState, password: value }))
+            setUserData((prevState) => ({ ...prevState, login: value }))
           }
           style={[
             styles.textInput,
-            focusedFields.password && styles.textInputFocused,
+            focusedFields.login && styles.textInputFocused,
+            { marginTop: 33 },
           ]}
-          secureTextEntry={passHide}
-          placeholder="Пароль"
+          placeholder="Логін"
           placeholderTextColor={"#bdbdbd"}
-          onFocus={() => handleFocus("password")}
-          onBlur={() => handleBlur("password")}
+          onFocus={() => handleFocus("login")}
+          onBlur={() => handleBlur("login")}
         />
+        <TextInput
+          value={userData.email}
+          onChangeText={(value) =>
+            setUserData((prevState) => ({ ...prevState, email: value }))
+          }
+          style={[
+            styles.textInput,
+            focusedFields.email && styles.textInputFocused,
+            { marginTop: 16, marginBottom: 16 },
+          ]}
+          placeholder="Адреса електронної пошти"
+          placeholderTextColor={"#bdbdbd"}
+          onFocus={() => handleFocus("email")}
+          onBlur={() => handleBlur("email")}
+        />
+        <View style={styles.passwordInputBox}>
+          <TextInput
+            value={userData.password}
+            onChangeText={(value) =>
+              setUserData((prevState) => ({ ...prevState, password: value }))
+            }
+            style={[
+              styles.textInput,
+              focusedFields.password && styles.textInputFocused,
+            ]}
+            secureTextEntry={passHide}
+            placeholder="Пароль"
+            placeholderTextColor={"#bdbdbd"}
+            onFocus={() => handleFocus("password")}
+            onBlur={() => handleBlur("password")}
+          />
 
-        <TouchableOpacity
-          style={styles.passwordShowBox}
-          activeOpacity={0.5}
-          onPress={onPassHide}
-        >
-          <Text style={styles.passwordShowText}>
-            {passHide ? "Показати" : "Сховати"}
-          </Text>
+          <TouchableOpacity
+            style={styles.passwordShowBox}
+            activeOpacity={0.5}
+            onPress={onPassHide}
+          >
+            <Text style={styles.passwordShowText}>
+              {passHide ? "Показати" : "Сховати"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <ButtonComponent title="Зареєструватися" onPress={onRegister} />
+        <TouchableOpacity activeOpacity={0.5}>
+          <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
         </TouchableOpacity>
-      </View>
-      <ButtonComponent title="Зареєструватися" onPress={onRegister} />
-      <TouchableOpacity activeOpacity={0.5}>
-        <Text style={styles.signInText}>Вже є акаунт? Увійти</Text>
-      </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 };
