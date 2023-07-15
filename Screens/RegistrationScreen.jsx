@@ -58,6 +58,7 @@ const RegistrationScreen = () => {
           { marginTop: 33 },
         ]}
         placeholder="Логін"
+        placeholderTextColor={"#bdbdbd"}
         onFocus={() => handleFocus("login")}
         onBlur={() => handleBlur("login")}
       />
@@ -72,6 +73,7 @@ const RegistrationScreen = () => {
           { marginTop: 16, marginBottom: 16 },
         ]}
         placeholder="Адреса електронної пошти"
+        placeholderTextColor={"#bdbdbd"}
         onFocus={() => handleFocus("email")}
         onBlur={() => handleBlur("email")}
       />
@@ -87,6 +89,7 @@ const RegistrationScreen = () => {
           ]}
           secureTextEntry={passHide}
           placeholder="Пароль"
+          placeholderTextColor={"#bdbdbd"}
           onFocus={() => handleFocus("password")}
           onBlur={() => handleBlur("password")}
         />
@@ -150,6 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
+    backgroundColor: "#f6f6f6",
 
     borderColor: "#e8e8e8",
     borderStyle: "solid",
