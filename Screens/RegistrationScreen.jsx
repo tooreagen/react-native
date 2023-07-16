@@ -217,12 +217,14 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 16,
   },
+  
   passwordShowText: {
     fontFamily: "RobotoRegular",
     fontSize: 16,
     lineHeight: 19,
     color: "#1b4371",
   },
+
   signInText: {
     marginTop: 16,
     paddingBottom: 16,
