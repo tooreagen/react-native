@@ -7,10 +7,15 @@ import {
   TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
+  ImageBackground,
+  TouchableWithoutFeedback,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import ButtonComponent from "../Components/Button";
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const [focusedFields, setFocusedFields] = useState({
     email: false,
     password: false,
@@ -41,82 +46,108 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.loginPage}>
-      <Text style={styles.textHeading}>Увійти</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../assets/images/background.jpg")}
+          style={styles.backgroundImage}
+        >
+          <View style={styles.loginPage}>
+            <Text style={styles.textHeading}>Увійти</Text>
 
-      <KeyboardAvoidingView
-        behavior={"height"}
-        style={{
-          marginBottom: (focusedFields.email || focusedFields.password) && -110,
-        }}
-      >
-        <TextInput
-          value={userData.email}
-          onChangeText={(value) =>
-            setUserData((prevState) => ({ ...prevState, email: value }))
-          }
-          style={[
-            styles.textInput,
-            focusedFields.email && styles.textInputFocused,
-            { marginTop: 16, marginBottom: 16 },
-          ]}
-          placeholder="Адреса електронної пошти"
-          placeholderTextColor={"#bdbdbd"}
-          onFocus={() => handleFocus("email")}
-          onBlur={() => handleBlur("email")}
-        />
-
-        <View style={styles.passwordInputBox}>
-          <TextInput
-            value={userData.password}
-            onChangeText={(value) =>
-              setUserData((prevState) => ({ ...prevState, password: value }))
-            }
-            style={[
-              styles.textInput,
-              focusedFields.password && styles.textInputFocused,
-            ]}
-            secureTextEntry={passHide}
-            placeholder="Пароль"
-            placeholderTextColor={"#bdbdbd"}
-            onFocus={() => handleFocus("password")}
-            onBlur={() => handleBlur("password")}
-          />
-
-          <TouchableOpacity
-            style={styles.passwordShowBox}
-            activeOpacity={0.5}
-            onPress={onPassHide}
-          >
-            <Text style={styles.passwordShowText}>
-              {passHide ? "Показати" : "Сховати"}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <ButtonComponent title="Увійти" onPress={onLogin} />
-
-        <View style={styles.bottomText}>
-          <Text style={styles.signInText}>Немає акаунту? </Text>
-          <TouchableOpacity activeOpacity={0.5}>
-            <Text
-              style={[styles.signInText, { textDecorationLine: "underline" }]}
+            <KeyboardAvoidingView
+              behavior={"height"}
+              style={{
+                marginBottom: (focusedFields.email || focusedFields.password) && -120,
+              }}
             >
-              Зареєструватися
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </View>
+              <TextInput
+                value={userData.email}
+                onChangeText={(value) =>
+                  setUserData((prevState) => ({ ...prevState, email: value }))
+                }
+                style={[
+                  styles.textInput,
+                  focusedFields.email && styles.textInputFocused,
+                  { marginTop: 16, marginBottom: 16 },
+                ]}
+                placeholder="Адреса електронної пошти"
+                placeholderTextColor={"#bdbdbd"}
+                onFocus={() => handleFocus("email")}
+                onBlur={() => handleBlur("email")}
+              />
+
+              <View style={styles.passwordInputBox}>
+                <TextInput
+                  value={userData.password}
+                  onChangeText={(value) =>
+                    setUserData((prevState) => ({
+                      ...prevState,
+                      password: value,
+                    }))
+                  }
+                  style={[
+                    styles.textInput,
+                    focusedFields.password && styles.textInputFocused,
+                  ]}
+                  secureTextEntry={passHide}
+                  placeholder="Пароль"
+                  placeholderTextColor={"#bdbdbd"}
+                  onFocus={() => handleFocus("password")}
+                  onBlur={() => handleBlur("password")}
+                />
+
+                <TouchableOpacity
+                  style={styles.passwordShowBox}
+                  activeOpacity={0.5}
+                  onPress={onPassHide}
+                >
+                  <Text style={styles.passwordShowText}>
+                    {passHide ? "Показати" : "Сховати"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <ButtonComponent title="Увійти" onPress={onLogin} />
+
+              <View style={styles.bottomText}>
+                <Text style={styles.signInText}>Немає акаунту? </Text>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  onPress={() => navigation.navigate("Registration")}
+                >
+                  <Text
+                    style={[
+                      styles.signInText,
+                      { textDecorationLine: "underline" },
+                    ]}
+                  >
+                    Зареєструватися
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
+          </View>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
   loginPage: {
     padding: 16,
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+  },
+
+  backgroundImage: {
+    flex: 1,
     justifyContent: "flex-end",
   },
 
@@ -169,6 +200,7 @@ const styles = StyleSheet.create({
 
   signInText: {
     marginTop: 16,
+    paddingBottom: 16,
     textAlign: "center",
     fontFamily: "RobotoRegular",
     fontSize: 16,

@@ -1,15 +1,14 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
-import RegistrationScreen from "./Screens/RegistrationScreen";
 import { useFonts } from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
+
+import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import PostsScreen from "./Screens/PostsScreen";
+
+const MainStack = createStackNavigator();
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -24,31 +23,27 @@ const App = () => {
 
   {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <ImageBackground
-            source={require("./assets/images/background.jpg")}
-            style={styles.backgroundImage}
-          >
-            <RegistrationScreen />
-            {/* <LoginScreen/> */}
-            {/* <PostsScreen/> */}
-          </ImageBackground>
-        </View>
-      </TouchableWithoutFeedback>
+      <NavigationContainer>
+        <MainStack.Navigator initialRouteName="Login">
+          <MainStack.Screen
+            name="Registration"
+            component={RegistrationScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="Posts"
+            component={PostsScreen}
+            options={{ headerShown: false }}
+          />
+        </MainStack.Navigator>
+      </NavigationContainer>
     );
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
-  backgroundImage: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-});
 
 export default App;
