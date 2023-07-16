@@ -13,7 +13,7 @@ import SvgTrash from "../assets/icons/trash.svg";
 import SvgArrowLeft from "../assets/icons/arrow-left.svg";
 import SvgCamera from "../assets/icons/camera.svg";
 import SvgMapPin from "../assets/icons/map-pin.svg";
-import ButtonComponent from "./Button";
+import ButtonComponent from "../Components/Button";
 
 const screenHeight = Dimensions.get("window").height;
 

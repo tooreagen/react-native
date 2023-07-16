@@ -1,6 +1,6 @@
 import React from "react";
 import PostsPublications from "../Components/PostsPublications";
-import PostsPublicationsCreate from "../Components/CreatePostsScreen";
+import PostsPublicationsCreate from "./CreatePostsScreen";
 
 const PostsScreen = () => {
   return (
