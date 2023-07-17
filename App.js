@@ -15,6 +15,9 @@ const App = () => {
     RobotoRegular: require("./assets/fonts/Roboto-Regular.ttf"),
     RobotoMedium: require("./assets/fonts/Roboto-Medium.ttf"),
     RobotoBold: require("./assets/fonts/Roboto-Bold.ttf"),
+    InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
+    InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
+    InterBold: require("./assets/fonts/Inter-Bold.ttf"),
   });
 
   if (!fontsLoaded) {

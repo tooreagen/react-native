@@ -17,7 +17,7 @@ import ButtonComponent from "../Components/Button";
 
 const screenHeight = Dimensions.get("window").height;
 
-const PostsPublicationsCreate = () => {
+const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.footer}>
@@ -41,12 +41,14 @@ const PostsPublicationsCreate = () => {
             { marginTop: 32, fontFamily: "RobotoMedium" },
           ]}
           placeholder="Назва..."
+          placeholderTextColor={"#bdbdbd"}
         />
 
         <View>
           <TextInput
             style={[styles.textInput, { marginTop: 16, paddingLeft: 28 }]}
             placeholder="Місцевість..."
+            placeholderTextColor={"#bdbdbd"}
           />
           <TouchableOpacity activeOpacity={0.5}>
             <SvgMapPin style={styles.svgMapPin} />
@@ -149,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostsPublicationsCreate;
+export default CreatePostsScreen;
