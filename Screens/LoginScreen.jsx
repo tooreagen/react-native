@@ -39,6 +39,7 @@ const LoginScreen = () => {
     setUserData(initialState);
     setPassHide(true);
     Keyboard.dismiss();
+    navigation.navigate("Home");
   };
 
   const onPassHide = () => {

@@ -6,7 +6,6 @@ import "react-native-gesture-handler";
 
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
-import PostsScreen from "./Screens/PostsScreen";
 import HomeScreen from "./Screens/HomeScreen";
 
 const MainStack = createStackNavigator();
@@ -27,26 +26,25 @@ const App = () => {
 
   {
     return (
-      // <NavigationContainer>
-      //   <MainStack.Navigator initialRouteName="Login">
-      //     <MainStack.Screen
-      //       name="Registration"
-      //       component={RegistrationScreen}
-      //       options={{ headerShown: false }}
-      //     />
-      //     <MainStack.Screen
-      //       name="Login"
-      //       component={LoginScreen}
-      //       options={{ headerShown: false }}
-      //     />
-      //     <MainStack.Screen
-      //       name="Posts"
-      //       component={PostsScreen}
-      //       options={{ headerShown: false }}
-      //     />
-      //   </MainStack.Navigator>
-      // </NavigationContainer>
-      <HomeScreen/>
+      <NavigationContainer>
+        <MainStack.Navigator initialRouteName="Login">
+          <MainStack.Screen
+            name="Registration"
+            component={RegistrationScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+        </MainStack.Navigator>
+      </NavigationContainer>
     );
   }
 };
