@@ -10,9 +10,9 @@ import {
 import SvgLogOut from "../assets/icons/log-out.svg";
 import SvgFeatherIconGrid from "../assets/icons/feather-icon-grid.svg";
 import SvgFeatherIconUser from "../assets/icons/feather-icon-user.svg";
-import SvgToolbarButtonNew from "../assets/icons/toolbar-button-new.svg";
+import SvgToolbarButtonAdd from "../assets/icons/feather-icon-add.svg";
 
-const PostsPublications = () => {
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.footer}>
@@ -33,15 +33,15 @@ const PostsPublications = () => {
       </View>
 
       <View style={styles.toolBar}>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} style={styles.InActiveButton}>
           <SvgFeatherIconGrid width={24} height={24} />
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}>
-          <SvgToolbarButtonNew />
+        <TouchableOpacity activeOpacity={0.5} style={styles.activeButton}>
+          <SvgToolbarButtonAdd style={{stroke: "#ffffff"}} />
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} style={styles.InActiveButton}>
           <SvgFeatherIconUser width={24} height={24} />
         </TouchableOpacity>
       </View>
@@ -115,6 +115,22 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#0000004c",
   },
+
+  activeButton: {
+    width: 70,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FF6C00",
+    borderRadius: 50,
+  },
+
+  InActiveButton: {
+    width: 70,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
-export default PostsPublications;
+export default HomeScreen;

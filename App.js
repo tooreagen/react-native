@@ -7,8 +7,7 @@ import "react-native-gesture-handler";
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import PostsScreen from "./Screens/PostsScreen";
-import ProfileScreen from "./Screens/ProfileScreen";
-import MapScreen from "./Screens/MapScreen";
+import HomeScreen from "./Screens/HomeScreen";
 
 const MainStack = createStackNavigator();
 
@@ -47,7 +46,7 @@ const App = () => {
       //     />
       //   </MainStack.Navigator>
       // </NavigationContainer>
-      <MapScreen/>
+      <HomeScreen/>
     );
   }
 };

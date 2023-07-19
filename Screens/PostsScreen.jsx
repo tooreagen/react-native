@@ -1,11 +1,11 @@
 import React from "react";
-import PostsPublications from "../Components/PostsPublications";
+import HomeScreen from "./HomeScreen";
 import PostsPublicationsCreate from "./CreatePostsScreen";
 
 const PostsScreen = () => {
   return (
     <>
-      <PostsPublications />
+      <HomeScreen />
       {/* <PostsPublicationsCreate/> */}
     </>
   );
