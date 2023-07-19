@@ -18,6 +18,7 @@ import CommentsItem from "../Components/CommentsItem";
 
 const screenHeight = Dimensions.get("window").height;
 
+//delete array
 const commentsArr = [
   {
     id: "1",

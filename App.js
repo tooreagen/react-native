@@ -7,6 +7,7 @@ import "react-native-gesture-handler";
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import PostsScreen from "./Screens/PostsScreen";
+import ProfileScreen from "./Screens/ProfileScreen";
 
 const MainStack = createStackNavigator();
 
