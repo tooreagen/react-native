@@ -5,7 +5,6 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  StatusBar,
   Image,
   Dimensions,
   TouchableWithoutFeedback,
@@ -73,17 +72,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
 
-  footer: {
-    marginTop: StatusBar.currentHeight,
-    height: 44,
-    paddingTop: 11,
-    paddingBottom: 11,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderBottomWidth: 1,
-    borderColor: "#0000004c",
-  },
-
   main: {
     flex: 1,
     paddingTop: 32,
@@ -123,27 +111,6 @@ const styles = StyleSheet.create({
   svgMapPin: {
     position: "absolute",
     bottom: 17,
-  },
-
-  textHeading: {
-    color: "#212121",
-    textAlign: "center",
-    fontFamily: "RobotoMedium",
-    fontSize: 17,
-    lineHeight: 22,
-    letterSpacing: -0.408,
-  },
-
-  svgArrowLeft: {
-    position: "absolute",
-    top: 10,
-    left: 16,
-  },
-
-  toolBar: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 70,
   },
 });
 

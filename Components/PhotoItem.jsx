@@ -38,11 +38,6 @@ const PhotoItem = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 16,
-    marginBottom: 24,
-  },
-
   photoContainer: {
     flex: 1,
     marginTop: 32,

@@ -142,22 +142,6 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 45,
   },
-
-  activeButton: {
-    width: 70,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FF6C00",
-    borderRadius: 50,
-  },
-
-  InActiveButton: {
-    width: 70,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
 });
 
 export default ProfileScreen;

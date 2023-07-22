@@ -30,38 +30,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
 
-  footer: {
-    marginTop: StatusBar.currentHeight,
-    height: 44,
-    paddingTop: 11,
-    paddingBottom: 11,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderBottomWidth: 1,
-    borderColor: "#0000004c",
-  },
-
   main: {
     flex: 1,
     paddingTop: 32,
     paddingBottom: 32,
     paddingLeft: 16,
     paddingRight: 16,
-  },
-
-  textHeading: {
-    color: "#212121",
-    textAlign: "center",
-    fontFamily: "RobotoMedium",
-    fontSize: 17,
-    lineHeight: 22,
-    letterSpacing: -0.408,
-  },
-
-  svgLogOut: {
-    position: "absolute",
-    top: 10,
-    right: 16,
   },
 
   userCard: {
@@ -80,31 +54,6 @@ const styles = StyleSheet.create({
       fontFamily: "RobotoRegular",
       fontSize: 11,
     },
-  },
-
-  toolBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    height: 70,
-    borderTopWidth: 1,
-    borderColor: "#0000004c",
-  },
-
-  activeButton: {
-    width: 70,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FF6C00",
-    borderRadius: 50,
-  },
-
-  InActiveButton: {
-    width: 70,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
