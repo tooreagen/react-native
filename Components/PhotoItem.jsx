@@ -8,7 +8,6 @@ const PhotoItem = (props) => {
   const { url, title, numComments, likes, location } = props;
 
   return (
-    // <View style={styles.container}>
     <View style={styles.photoContainer}>
       <Image style={styles.photo} source={{ uri: url }} />
 

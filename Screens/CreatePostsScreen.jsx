@@ -8,66 +8,62 @@ import {
   StatusBar,
   Image,
   Dimensions,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
-import SvgTrash from "../assets/icons/trash.svg";
-import SvgArrowLeft from "../assets/icons/arrow-left.svg";
 import SvgCamera from "../assets/icons/camera.svg";
 import SvgMapPin from "../assets/icons/map-pin.svg";
 import ButtonComponent from "../Components/Button";
+import Footer from "../Components/Footer";
 
 const screenHeight = Dimensions.get("window").height;
 
 const CreatePostsScreen = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.footer}>
-        <Text style={styles.textHeading}>Створити публікацію</Text>
-        <TouchableOpacity style={styles.svgArrowLeft} activeOpacity={0.5}>
-          <SvgArrowLeft width={24} height={24} />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.main}>
-        <View style={styles.photoWrapper}>
-          {false ? <Image /> : <SvgCamera />}
-        </View>
-        <Text style={styles.photoLabel}>
-          {false ? "Редагувати фото" : "Завантажте фото"}
-        </Text>
-
-        <TextInput
-          style={[
-            styles.textInput,
-            { marginTop: 32, fontFamily: "RobotoMedium" },
-          ]}
-          placeholder="Назва..."
-          placeholderTextColor={"#bdbdbd"}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Footer
+          heading={"Створити публікацію"}
+          backIconActive={true}
+          logOutIconActive={false}
         />
 
-        <View>
+        <View style={styles.main}>
+          <View style={styles.photoWrapper}>
+            {false ? <Image /> : <SvgCamera />}
+          </View>
+          <Text style={styles.photoLabel}>
+            {false ? "Редагувати фото" : "Завантажте фото"}
+          </Text>
+
           <TextInput
-            style={[styles.textInput, { marginTop: 16, paddingLeft: 28 }]}
-            placeholder="Місцевість..."
+            style={[
+              styles.textInput,
+              { marginTop: 32, fontFamily: "RobotoMedium" },
+            ]}
+            placeholder="Назва..."
             placeholderTextColor={"#bdbdbd"}
           />
-          <TouchableOpacity activeOpacity={0.5}>
-            <SvgMapPin style={styles.svgMapPin} />
-          </TouchableOpacity>
+
+          <View>
+            <TextInput
+              style={[styles.textInput, { marginTop: 16, paddingLeft: 28 }]}
+              placeholder="Місцевість..."
+              placeholderTextColor={"#bdbdbd"}
+            />
+            <TouchableOpacity activeOpacity={0.5}>
+              <SvgMapPin style={styles.svgMapPin} />
+            </TouchableOpacity>
+          </View>
+
+          <ButtonComponent
+            disabled={false ? false : true}
+            style={{ marginTop: 32 }}
+            title="Опублікувати"
+          />
         </View>
-
-        <ButtonComponent
-          disabled={false ? false : true}
-          style={{ marginTop: 32 }}
-          title="Опублікувати"
-        />
       </View>
-
-      <View style={styles.toolBar}>
-        <TouchableOpacity activeOpacity={0.5}>
-          <SvgTrash width={70} height={40} />
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

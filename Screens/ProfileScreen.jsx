@@ -12,9 +12,6 @@ import PhotoItem from "../Components/PhotoItem";
 import SvgAvatarAdd from "../assets/icons/add.svg";
 import SvgAvatarRemove from "../assets/icons/remove.svg";
 import SvgLogOut from "../assets/icons/log-out.svg";
-import SvgFeatherIconGrid from "../assets/icons/feather-icon-grid.svg";
-import SvgFeatherIconUser from "../assets/icons/feather-icon-user.svg";
-import SvgToolbarButtonAdd from "../assets/icons/feather-icon-add.svg";
 
 //delete array
 const photosArr = [
@@ -91,20 +88,6 @@ const ProfileScreen = () => {
           )}
           keyExtractor={(item) => item.id}
         />
-
-        <View style={styles.toolBar}>
-          <TouchableOpacity activeOpacity={0.5} style={styles.InActiveButton}>
-            <SvgFeatherIconGrid width={24} height={24} />
-          </TouchableOpacity>
-
-          <TouchableOpacity activeOpacity={0.5} style={styles.activeButton}>
-            <SvgFeatherIconUser width={24} height={24} />
-          </TouchableOpacity>
-
-          <TouchableOpacity activeOpacity={0.5} style={styles.InActiveButton}>
-            <SvgToolbarButtonAdd width={40} height={40} />
-          </TouchableOpacity>
-        </View>
       </View>
     </ImageBackground>
   );
@@ -158,15 +141,6 @@ const styles = StyleSheet.create({
   photosList: {
     marginTop: 32,
     marginBottom: 45,
-  },
-
-  toolBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    height: 70,
-    borderTopWidth: 1,
-    borderColor: "#0000004c",
   },
 
   activeButton: {
