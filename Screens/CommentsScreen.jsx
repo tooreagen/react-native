@@ -1,20 +1,18 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   TextInput,
   View,
   TouchableOpacity,
-  StatusBar,
   Image,
   Dimensions,
   FlatList,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import SvgArrowLeft from "../assets/icons/arrow-left.svg";
 import SvgButtonSend from "../assets/icons/buttonSend.svg";
 import CommentsItem from "../Components/CommentsItem";
+import Footer from "../Components/Footer";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -65,12 +63,7 @@ const commentsArr = [
 const CommentsScreen = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.footer}>
-        <Text style={styles.textHeading}>Коментарі</Text>
-        <TouchableOpacity style={styles.svgArrowLeft} activeOpacity={0.5}>
-          <SvgArrowLeft width={24} height={24} />
-        </TouchableOpacity>
-      </View>
+      <Footer heading={"Коментарі"} backIconActive={true} />
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.main}>
@@ -114,17 +107,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
 
-  footer: {
-    marginTop: StatusBar.currentHeight,
-    height: 44,
-    paddingTop: 11,
-    paddingBottom: 11,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderBottomWidth: 1,
-    borderColor: "#0000004c",
-  },
-
   main: {
     flex: 1,
     paddingTop: 32,
@@ -164,21 +146,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 14,
     right: 8,
-  },
-
-  textHeading: {
-    color: "#212121",
-    textAlign: "center",
-    fontFamily: "RobotoMedium",
-    fontSize: 17,
-    lineHeight: 22,
-    letterSpacing: -0.408,
-  },
-
-  svgArrowLeft: {
-    position: "absolute",
-    top: 10,
-    left: 16,
   },
 });
 
