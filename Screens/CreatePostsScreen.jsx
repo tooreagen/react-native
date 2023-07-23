@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
   TouchableOpacity,
-  Image,
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
@@ -18,6 +19,26 @@ import Footer from "../Components/Footer";
 const screenHeight = Dimensions.get("window").height;
 
 const CreatePostsScreen = () => {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [cameraRef, setCameraRef] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      await MediaLibrary.requestPermissionsAsync();
+
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  if (!hasPermission) {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text style={{ fontSize: 18, color: "#ff0000" }}>Немає доступу до камери</Text>
+      </View>
+    );
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -28,9 +49,25 @@ const CreatePostsScreen = () => {
         />
 
         <View style={styles.main}>
-          <View style={styles.photoWrapper}>
-            {false ? <Image /> : <SvgCamera />}
-          </View>
+          <Camera
+            style={styles.camera}
+            type={Camera.Constants.Type.back}
+            ref={setCameraRef}
+          >
+            <TouchableOpacity
+              onPress={async () => {
+                if (cameraRef) {
+                  const { uri } = await cameraRef.takePictureAsync();
+                  await MediaLibrary.createAssetAsync(uri);
+                }
+              }}
+            >
+              <View style={styles.photoWrapper}>
+                <SvgCamera />
+              </View>
+            </TouchableOpacity>
+          </Camera>
+
           <Text style={styles.photoLabel}>
             {false ? "Редагувати фото" : "Завантажте фото"}
           </Text>
@@ -84,10 +121,7 @@ const styles = StyleSheet.create({
     height: screenHeight * 0.3,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#E8E8E8",
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "transparent",
   },
 
   photoLabel: {
