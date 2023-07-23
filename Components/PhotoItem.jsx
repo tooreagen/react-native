@@ -1,10 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import SvgComments from "../assets/icons/comments.svg";
 import SvgLikes from "../assets/icons/likes.svg";
 import SvgMapPin from "../assets/icons/map-pin.svg";
 
 const PhotoItem = (props) => {
+  const navigation = useNavigation();
   const { url, title, numComments, likes, location } = props;
 
   return (
@@ -16,7 +18,12 @@ const PhotoItem = (props) => {
       <View style={styles.photoInfoBlock}>
         <View style={{ flexDirection: "row" }}>
           <View style={styles.commentsBlock}>
-            <SvgComments width={24} height={24} />
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => navigation.navigate("CommentsScreen")}
+            >
+              <SvgComments width={24} height={24} />
+            </TouchableOpacity>
             <Text style={styles.infoText}>{numComments}</Text>
           </View>
 
