@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
 } from "react-native";
 import SvgCamera from "../assets/icons/camera.svg";
 import SvgMapPin from "../assets/icons/map-pin.svg";
@@ -21,6 +23,7 @@ const screenHeight = Dimensions.get("window").height;
 const CreatePostsScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
+  const [cameraImage, setCameraImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -31,10 +34,19 @@ const CreatePostsScreen = () => {
     })();
   }, []);
 
+  const handlePhotoDelete = () => {
+    setCameraImage(null);
+  };
+
+  const handlePhotoPost = () => {
+  };
+
   if (!hasPermission) {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 18, color: "#ff0000" }}>Немає доступу до камери</Text>
+        <Text style={{ fontSize: 18, color: "#ff0000" }}>
+          Немає доступу до камери
+        </Text>
       </View>
     );
   }
@@ -49,27 +61,30 @@ const CreatePostsScreen = () => {
         />
 
         <View style={styles.main}>
-          <Camera
-            style={styles.camera}
-            type={Camera.Constants.Type.back}
-            ref={setCameraRef}
-          >
-            <TouchableOpacity
-              onPress={async () => {
-                if (cameraRef) {
-                  const { uri } = await cameraRef.takePictureAsync();
-                  await MediaLibrary.createAssetAsync(uri);
-                }
-              }}
-            >
-              <View style={styles.photoWrapper}>
-                <SvgCamera />
-              </View>
-            </TouchableOpacity>
-          </Camera>
+          {!cameraImage ? (
+            <Camera type={Camera.Constants.Type.back} ref={setCameraRef}>
+              <TouchableOpacity
+                onPress={async () => {
+                  if (cameraRef) {
+                    const { uri } = await cameraRef.takePictureAsync();
+                    await MediaLibrary.createAssetAsync(uri);
+                    setCameraImage(uri);
+                  }
+                }}
+              >
+                <View style={styles.photoWrapper}>
+                  <SvgCamera />
+                </View>
+              </TouchableOpacity>
+            </Camera>
+          ) : (
+            <View style={styles.photoWrapper}>
+              <Image source={{ uri: cameraImage }} />
+            </View>
+          )}
 
           <Text style={styles.photoLabel}>
-            {false ? "Редагувати фото" : "Завантажте фото"}
+            {cameraImage ? "Редагувати фото" : "Завантажте фото"}
           </Text>
 
           <TextInput
@@ -93,10 +108,31 @@ const CreatePostsScreen = () => {
           </View>
 
           <ButtonComponent
-            disabled={false ? false : true}
+            disabled={cameraImage ? false : true}
             style={{ marginTop: 32 }}
             title="Опублікувати"
+            onPress={handlePhotoPost}
           />
+        </View>
+
+        <View style={styles.toolBar}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={handlePhotoDelete}
+            disabled={cameraImage ? false : true}
+          >
+            <Ionicons
+              style={{ borderRadius: 50 }}
+              backgroundColor={cameraImage ? "#FF6C00" : "#f6f6f6"}
+              paddingLeft={23}
+              paddingRight={23}
+              paddingTop={8}
+              paddingBottom={8}
+              name={"trash-outline"}
+              size={24}
+              color={cameraImage ? "#ffffff" : "#bdbdbd"}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -121,6 +157,9 @@ const styles = StyleSheet.create({
     height: screenHeight * 0.3,
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: "#e8e8e8",
     backgroundColor: "transparent",
   },
 
@@ -145,6 +184,12 @@ const styles = StyleSheet.create({
   svgMapPin: {
     position: "absolute",
     bottom: 17,
+  },
+
+  toolBar: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 70,
   },
 });
 

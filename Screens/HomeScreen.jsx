@@ -72,7 +72,10 @@ const HomeScreen = () => {
       <Tab.Screen
         name="CreatePostsScreen"
         component={CreatePostsScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" }
+        }}
       />
       <Tab.Screen
         name="ProfileScreen"
