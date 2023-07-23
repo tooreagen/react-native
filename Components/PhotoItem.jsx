@@ -34,7 +34,12 @@ const PhotoItem = (props) => {
         </View>
 
         <View style={styles.locationBlock}>
-          <SvgMapPin width={24} height={24} />
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate("MapScreen")}
+          >
+            <SvgMapPin width={24} height={24} />
+          </TouchableOpacity>
           <Text style={[styles.infoText, { textDecorationLine: "underline" }]}>
             {location}
           </Text>

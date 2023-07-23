@@ -1,26 +1,30 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  StatusBar,
-} from "react-native";
-import SvgArrowLeft from "../assets/icons/arrow-left.svg";
+import { StyleSheet, View, StatusBar, Dimensions } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import Footer from "../Components/Footer";
 
 const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.footer}>
-        <Text style={styles.textHeading}>Карта</Text>
-        <TouchableOpacity style={styles.svgArrowLeft} activeOpacity={0.5}>
-          <SvgArrowLeft width={24} height={24} />
-        </TouchableOpacity>
-      </View>
+      <Footer heading={"Карта"} backIconActive={true} />
 
-      <View style={styles.main}>
-        <Text>Карта</Text>
-      </View>
+      <MapView
+        style={styles.map}
+        region={{
+          latitude: 48.218708,
+          longitude: 24.28666,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        mapType="standard"
+        minZoomLevel={15}
+      >
+        <Marker
+          title="Photo location"
+          coordinate={{ latitude: 48.218708, longitude: 24.28666 }}
+          description="Hello, this is location photo"
+        />
+      </MapView>
     </View>
   );
 };
@@ -42,12 +46,9 @@ const styles = StyleSheet.create({
     borderColor: "#0000004c",
   },
 
-  main: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
-    backgroundColor: "#b8b8b8",
+  map: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 
   textHeading: {

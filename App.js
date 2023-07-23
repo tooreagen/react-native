@@ -8,6 +8,7 @@ import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import CommentsScreen from "./Screens/CommentsScreen";
+import MapScreen from "./Screens/MapScreen";
 
 const MainStack = createStackNavigator();
 
@@ -47,6 +48,11 @@ const App = () => {
           <MainStack.Screen
             name="CommentsScreen"
             component={CommentsScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="MapScreen"
+            component={MapScreen}
             options={{ headerShown: false }}
           />
         </MainStack.Navigator>
