@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -21,16 +23,22 @@ import Footer from "../Components/Footer";
 const screenHeight = Dimensions.get("window").height;
 
 const CreatePostsScreen = () => {
+  const navigation = useNavigation();
+
   const [hasPermission, setHasPermission] = useState(null);
+  const [locationPermission, setLocationPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [cameraImage, setCameraImage] = useState(null);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
       await MediaLibrary.requestPermissionsAsync();
+      setHasPermission(cameraStatus.status === "granted");
 
-      setHasPermission(status === "granted");
+      const locationStatus = await Location.requestForegroundPermissionsAsync();
+      setLocationPermission(locationStatus.status === "granted");
     })();
   }, []);
 
@@ -38,7 +46,16 @@ const CreatePostsScreen = () => {
     setCameraImage(null);
   };
 
-  const handlePhotoPost = () => {
+  const handlePhotoPost = async () => {
+    if (locationPermission) {
+      const location = await Location.getCurrentPositionAsync({});
+      const coords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      setLocation(coords);
+      navigation.navigate("PostsScreen");
+    }
   };
 
   if (!hasPermission) {
