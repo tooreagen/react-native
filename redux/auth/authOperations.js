@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
+  signOut,
 } from "firebase/auth";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../../firebase.config";
@@ -28,3 +29,13 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
+
+export const userOut = createAsyncThunk("auth/userOut", async (_, thunkAPI) => {
+  try {
+    const response = await signOut(auth);
+
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

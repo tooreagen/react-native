@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,17 +6,40 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import SvgLogOut from "../assets/icons/log-out.svg";
 import SvgArrowLeft from "../assets/icons/arrow-left.svg";
 
+import { useDispatch, useSelector } from "react-redux";
+import { userOut } from "../redux/auth/authOperations";
+import { selectIsLoggedIn } from "../redux/auth/authSelectors";
+
 const Footer = (props) => {
   const { heading, backIconActive, logOutIconActive } = props;
+  const navigation = useNavigation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(userOut());
+  };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigation.navigate("Login");
+    }
+  }, [isLoggedIn]);
 
   return (
     <View style={styles.footer}>
       <Text style={styles.textHeading}>{heading}</Text>
       {logOutIconActive && (
-        <TouchableOpacity style={styles.svgLogOut} activeOpacity={0.5}>
+        <TouchableOpacity
+          style={styles.svgLogOut}
+          activeOpacity={0.5}
+          onPress={handleLogOut}
+        >
           <SvgLogOut width={24} height={24} />
         </TouchableOpacity>
       )}
