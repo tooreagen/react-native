@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,11 +11,18 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+
 import ButtonComponent from "../Components/Button";
 import SvgAvatarAdd from "../assets/icons/add.svg";
+import { selectIsLoggedIn } from "../redux/auth/authSelectors";
+import { userRegister } from "../redux/auth/authOperations";
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const dispatch = useDispatch();
 
   const [focusedFields, setFocusedFields] = useState({
     login: false,
@@ -37,16 +44,21 @@ const RegistrationScreen = () => {
   };
 
   const onRegister = () => {
-    console.log(userData);
+    dispatch(userRegister(userData));
     setUserData(initialState);
     setPassHide(true);
     Keyboard.dismiss();
-    navigation.navigate("Home");
   };
 
   const onPassHide = () => {
     setPassHide(!passHide);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigation.navigate("Home");
+    }
+  }, [isLoggedIn]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -218,7 +230,7 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 16,
   },
-  
+
   passwordShowText: {
     fontFamily: "RobotoRegular",
     fontSize: 16,

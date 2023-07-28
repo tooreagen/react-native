@@ -3,12 +3,15 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
+import { Provider } from "react-redux";
 
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import CommentsScreen from "./Screens/CommentsScreen";
 import MapScreen from "./Screens/MapScreen";
+
+import { store } from "./redux/store";
 
 const MainStack = createStackNavigator();
 
@@ -26,8 +29,8 @@ const App = () => {
     return null;
   }
 
-  {
-    return (
+  return (
+    <Provider store={store}>
       <NavigationContainer>
         <MainStack.Navigator initialRouteName="Login">
           <MainStack.Screen
@@ -57,8 +60,8 @@ const App = () => {
           />
         </MainStack.Navigator>
       </NavigationContainer>
-    );
-  }
+    </Provider>
+  );
 };
 
 export default App;
