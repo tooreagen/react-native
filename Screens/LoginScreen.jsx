@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,10 +11,16 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../redux/auth/authSelectors";
 import ButtonComponent from "../Components/Button";
+import { userLogIn } from "../redux/auth/authOperations";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const dispatch = useDispatch();
 
   const [focusedFields, setFocusedFields] = useState({
     email: false,
@@ -35,16 +41,21 @@ const LoginScreen = () => {
   };
 
   const onLogin = () => {
-    console.log(userData);
+    dispatch(userLogIn(userData));
     setUserData(initialState);
     setPassHide(true);
     Keyboard.dismiss();
-    navigation.navigate("Home");
   };
 
   const onPassHide = () => {
     setPassHide(!passHide);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigation.navigate("Home");
+    }
+  }, [isLoggedIn]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -59,7 +70,8 @@ const LoginScreen = () => {
             <KeyboardAvoidingView
               behavior={"height"}
               style={{
-                marginBottom: (focusedFields.email || focusedFields.password) && -120,
+                marginBottom:
+                  (focusedFields.email || focusedFields.password) && -120,
               }}
             >
               <TextInput

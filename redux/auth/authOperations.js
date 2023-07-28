@@ -30,6 +30,19 @@ export const userRegister = createAsyncThunk(
   }
 );
 
+export const userLogIn = createAsyncThunk(
+  "auth/userLogIn",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const userOut = createAsyncThunk("auth/userOut", async (_, thunkAPI) => {
   try {
     const response = await signOut(auth);
