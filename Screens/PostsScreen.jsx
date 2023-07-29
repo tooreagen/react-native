@@ -1,8 +1,13 @@
-import React from "react";
-import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
 import Footer from "../Components/Footer";
+import { selectUserEmail, selectUserLogin } from "../redux/auth/authSelectors";
+import { useSelector } from "react-redux";
 
 const PostsScreen = () => {
+  const email = useSelector(selectUserEmail);
+  const login = useSelector(selectUserLogin);
+  
   return (
     <View style={styles.container}>
       <Footer
@@ -15,8 +20,8 @@ const PostsScreen = () => {
         <View style={styles.userCard}>
           <Image source={require("../assets/images/userAvatar.jpg")} />
           <View>
-            <Text style={styles.userCard.userName}>Natali Romanova</Text>
-            <Text style={styles.userCard.userEmail}>email@example.com</Text>
+            <Text style={styles.userCard.userName}>{login}</Text>
+            <Text style={styles.userCard.userEmail}>{email}</Text>
           </View>
         </View>
       </View>

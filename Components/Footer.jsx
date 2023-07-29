@@ -25,6 +25,10 @@ const Footer = (props) => {
     dispatch(userOut());
   };
 
+  const handlePrevScreen = () => {
+    navigation.navigate("Home");
+  };
+
   useEffect(() => {
     if (!isLoggedIn) {
       navigation.navigate("Login");
@@ -45,7 +49,11 @@ const Footer = (props) => {
       )}
 
       {backIconActive && (
-        <TouchableOpacity style={styles.svgArrowLeft} activeOpacity={0.5}>
+        <TouchableOpacity
+          style={styles.svgArrowLeft}
+          activeOpacity={0.5}
+          onPress={handlePrevScreen}
+        >
           <SvgArrowLeft width={24} height={24} />
         </TouchableOpacity>
       )}

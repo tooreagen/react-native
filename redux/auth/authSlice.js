@@ -24,6 +24,14 @@ const handleRejected = (state, action) => {
   console.error(action.payload);
 };
 
+const handleUserIn = (state, action) => {
+  state.user.login = action.payload.user.displayName;
+  state.user.email = action.payload.user.email;
+  state.user.avatarUrl = action.payload.user.photoURL;
+  state.isLoggedIn = true;
+  state.isLoading = false;
+};
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -31,26 +39,19 @@ export const authSlice = createSlice({
     builder
       //registration
       .addCase(userRegister.pending, handlePending)
-      .addCase(userRegister.fulfilled, (state, action) => {
-        state.user.login = action.payload.user.displayName;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-      })
+      .addCase(userRegister.fulfilled, handleUserIn)
       .addCase(userRegister.rejected, handleRejected)
+      //logIn
+      .addCase(userLogIn.pending, handlePending)
+      .addCase(userLogIn.fulfilled, handleUserIn)
+      .addCase(userLogIn.rejected, handleRejected)
       //logOut
       .addCase(userOut.pending, handlePending)
       .addCase(userOut.fulfilled, (state, action) => {
         state.isLoggedIn = false;
         state.isLoading = false;
       })
-      .addCase(userOut.rejected, handleRejected)
-      //logIn
-      .addCase(userLogIn.pending, handlePending)
-      .addCase(userLogIn.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
-        state.isLoading = false;
-      })
-      .addCase(userLogIn.rejected, handleRejected),
+      .addCase(userOut.rejected, handleRejected),
 });
 
 export default authSlice;
