@@ -7,7 +7,7 @@ import SvgMapPin from "../assets/icons/map-pin.svg";
 
 const PhotoItem = (props) => {
   const navigation = useNavigation();
-  const { url, title, numComments, likes, location } = props;
+  const { url, title, numComments, likes, place } = props;
 
   return (
     <View style={styles.photoContainer}>
@@ -41,7 +41,7 @@ const PhotoItem = (props) => {
             <SvgMapPin width={24} height={24} />
           </TouchableOpacity>
           <Text style={[styles.infoText, { textDecorationLine: "underline" }]}>
-            {location}
+            {place}
           </Text>
         </View>
       </View>

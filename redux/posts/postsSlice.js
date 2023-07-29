@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postAdd } from "./postsOperations";
+import { postAdd, getAllPosts } from "./postsOperations";
 
 const initialState = {
   currentPhoto: null,
@@ -23,8 +23,17 @@ export const postsSlice = createSlice({
     builder
       //postAdd
       .addCase(postAdd.pending, handlePending)
-      .addCase(postAdd.fulfilled, (state,action)=>{})
+      .addCase(postAdd.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
       .addCase(postAdd.rejected, handleRejected)
+      //getAllPosts
+      .addCase(getAllPosts.pending, handlePending)
+      .addCase(getAllPosts.fulfilled, (state, action) => {
+        state.allPosts = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getAllPosts.rejected, handleRejected),
 });
 
 export default postsSlice;

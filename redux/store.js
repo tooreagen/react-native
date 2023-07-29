@@ -5,6 +5,7 @@ import {
 } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import authSlice from "./auth/authSlice";
+import postsSlice from "./posts/postsSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -12,8 +13,16 @@ const authPersistConfig = {
   whitelist: ["token"],
 };
 
+const postsPersistConfig = {
+  key: "posts",
+  storage: AsyncStorage,
+};
+
 export const store = configureStore({
-  reducer: { auth: persistReducer(authPersistConfig, authSlice.reducer) },
+  reducer: {
+    auth: persistReducer(authPersistConfig, authSlice.reducer),
+    posts: persistReducer(postsPersistConfig, postsSlice.reducer),
+  },
   middleware: getDefaultMiddleware({
     serializableCheck: false,
   }),

@@ -23,7 +23,7 @@ import { storage } from "../firebase.config";
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { postAdd } from "../redux/posts/postsOperations";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserId } from "../redux/auth/authSelectors";
+import { selectUserId, selectUserLogin } from "../redux/auth/authSelectors";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -32,6 +32,7 @@ const CreatePostsScreen = () => {
   const dispatch = useDispatch();
 
   const userId = useSelector(selectUserId);
+  const userName = useSelector(selectUserLogin);
 
   const initialState = {
     title: "Дуже яскраве фото",
@@ -104,6 +105,7 @@ const CreatePostsScreen = () => {
         title: photoData.title,
         place: photoData.place,
         userId,
+        userName,
       })
     );
   };

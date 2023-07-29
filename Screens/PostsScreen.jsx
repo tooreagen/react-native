@@ -1,13 +1,23 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import Footer from "../Components/Footer";
+import PhotoItem from "../Components/PhotoItem";
 import { selectUserEmail, selectUserLogin } from "../redux/auth/authSelectors";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPosts } from "../redux/posts/postsOperations";
+import { selectAllPosts } from "../redux/posts/postsSelectors";
 
 const PostsScreen = () => {
   const email = useSelector(selectUserEmail);
   const login = useSelector(selectUserLogin);
-  
+  const allPosts = useSelector(selectAllPosts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, []);
+
   return (
     <View style={styles.container}>
       <Footer
@@ -24,6 +34,23 @@ const PostsScreen = () => {
             <Text style={styles.userCard.userEmail}>{email}</Text>
           </View>
         </View>
+
+        <FlatList
+          style={styles.photosList}
+          data={allPosts}
+          renderItem={({ item }) => (
+            <PhotoItem
+              key={item.id}
+              url={item.photo}
+              title={item.title}
+              numComments={0}
+              likes={0}
+              place={item.place}
+              location={item.location}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
       </View>
     </View>
   );
@@ -59,6 +86,10 @@ const styles = StyleSheet.create({
       fontFamily: "RobotoRegular",
       fontSize: 11,
     },
+  },
+
+  photosList: {
+    marginTop: 32,
   },
 });
 

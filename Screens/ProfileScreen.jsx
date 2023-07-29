@@ -12,45 +12,12 @@ import PhotoItem from "../Components/PhotoItem";
 import SvgAvatarAdd from "../assets/icons/add.svg";
 import SvgAvatarRemove from "../assets/icons/remove.svg";
 import SvgLogOut from "../assets/icons/log-out.svg";
-
-//delete array
-const photosArr = [
-  {
-    id: "1",
-    url: "https://cdn.pixabay.com/photo/2022/05/28/21/44/carpathians-7228042_1280.jpg",
-    title: "Українські Карпати",
-    numComments: 10,
-    likes: 5,
-    location: "Ukraine",
-  },
-  {
-    id: "2",
-    url: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    title: "Захід сонця",
-    numComments: 3,
-    likes: 27,
-    location: "Ukraine",
-  },
-  {
-    id: "3",
-    url: "https://cdn.pixabay.com/photo/2013/06/30/18/56/butterfly-142506_1280.jpg",
-    title: "Метелик",
-    numComments: 78,
-    likes: 169,
-    location: "India",
-  },
-  {
-    id: "4",
-    url: "https://cdn.pixabay.com/photo/2012/12/17/03/59/moose-70254_1280.jpg",
-    title: "Лось",
-    numComments: 32,
-    likes: 1023,
-    location: "Azerbaijan",
-  },
-];
+import { selectAllPosts } from "../redux/posts/postsSelectors";
+import { useSelector } from "react-redux";
 
 const ProfileScreen = () => {
   //   const navigation = useNavigation();
+  const allPosts = useSelector(selectAllPosts);
 
   return (
     <ImageBackground
@@ -75,14 +42,15 @@ const ProfileScreen = () => {
 
         <FlatList
           style={styles.photosList}
-          data={photosArr}
+          data={allPosts}
           renderItem={({ item }) => (
             <PhotoItem
               key={item.id}
-              url={item.url}
+              url={item.photo}
               title={item.title}
-              numComments={item.numComments}
-              likes={item.likes}
+              numComments={0}
+              likes={0}
+              place={item.place}
               location={item.location}
             />
           )}
