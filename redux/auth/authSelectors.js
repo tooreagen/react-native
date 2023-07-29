@@ -1,3 +1,4 @@
+export const selectUserId = (state) => state.auth.user.id;
 export const selectUserLogin = (state) => state.auth.user.login;
 export const selectUserEmail = (state) => state.auth.user.email;
 export const selectUserPassword = (state) => state.auth.user.password;

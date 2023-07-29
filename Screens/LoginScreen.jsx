@@ -27,8 +27,10 @@ const LoginScreen = () => {
     password: false,
   });
 
-  const initialState = { email: "", password: "" };
-
+  const initialState = {
+    email: "tooreagen2@gmail.com",
+    password: "antiLOPa86.",
+  };
   const [userData, setUserData] = useState(initialState);
   const [passHide, setPassHide] = useState(true);
 

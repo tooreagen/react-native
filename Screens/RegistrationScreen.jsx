@@ -30,7 +30,11 @@ const RegistrationScreen = () => {
     password: false,
   });
 
-  const initialState = { login: "", email: "", password: "" };
+  const initialState = {
+    login: "tooreagen2",
+    email: "tooreagen2@gmail.com",
+    password: "antiLOPa86.",
+  };
 
   const [userData, setUserData] = useState(initialState);
   const [passHide, setPassHide] = useState(true);

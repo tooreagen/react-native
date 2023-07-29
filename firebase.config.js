@@ -4,14 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAjj6SHlz1p-TGiBolAKkgKU_C3GoDUpVg",
-  authDomain: "react-native-c0659.firebaseapp.com",
-  databaseURL:
-    "https://react-native-c0659-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "react-native-c0659",
-  storageBucket: "react-native-c0659.appspot.com",
-  messagingSenderId: "443027447396",
-  appId: "1:443027447396:web:83b55e037f5585c47a8971",
+  apiKey: "AIzaSyBYFkYFToRfSdIyN6yszqujXnuS6nH5O7E",
+  authDomain: "tets-9035b.firebaseapp.com",
+  projectId: "tets-9035b",
+  storageBucket: "tets-9035b.appspot.com",
+  messagingSenderId: "516945514242",
+  appId: "1:516945514242:web:b3cad1b60cbb5d1b32bc1b",
 };
 
 const app = initializeApp(firebaseConfig);

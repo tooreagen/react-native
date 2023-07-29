@@ -3,12 +3,12 @@ import { userRegister, userLogIn, userOut } from "./authOperations";
 
 const initialState = {
   user: {
+    id: null,
     login: "",
     email: "",
     password: "",
     avatarUrl: "",
   },
-  token: null,
   isLoggedIn: false,
   error: null,
   isLoading: false,
@@ -25,6 +25,7 @@ const handleRejected = (state, action) => {
 };
 
 const handleUserIn = (state, action) => {
+  state.user.id = action.payload.user.uid;
   state.user.login = action.payload.user.displayName;
   state.user.email = action.payload.user.email;
   state.user.avatarUrl = action.payload.user.photoURL;

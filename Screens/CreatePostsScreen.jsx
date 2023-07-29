@@ -19,12 +19,26 @@ import SvgCamera from "../assets/icons/camera.svg";
 import SvgMapPin from "../assets/icons/map-pin.svg";
 import ButtonComponent from "../Components/Button";
 import Footer from "../Components/Footer";
+import { storage } from "../firebase.config";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { postAdd } from "../redux/posts/postsOperations";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserId } from "../redux/auth/authSelectors";
 
 const screenHeight = Dimensions.get("window").height;
 
 const CreatePostsScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const userId = useSelector(selectUserId);
+
+  const initialState = {
+    title: "Дуже яскраве фото",
+    place: "Аляска",
+  };
+
+  const [photoData, setPhotoData] = useState(initialState);
   const [hasPermission, setHasPermission] = useState(null);
   const [locationPermission, setLocationPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
@@ -44,6 +58,7 @@ const CreatePostsScreen = () => {
 
   const handlePhotoDelete = () => {
     setCameraImage(null);
+    setPhotoData(initialState);
   };
 
   const handlePhotoPost = async () => {
@@ -54,6 +69,11 @@ const CreatePostsScreen = () => {
         longitude: location.coords.longitude,
       };
       setLocation(coords);
+    }
+
+    if (cameraImage) {
+      uploadPhotoToServer();
+      setCameraImage(null);
       navigation.navigate("PostsScreen");
     }
   };
@@ -67,6 +87,26 @@ const CreatePostsScreen = () => {
       </View>
     );
   }
+
+  const uploadPhotoToServer = async () => {
+    const response = await fetch(cameraImage);
+    const file = await response.blob();
+    const uniquePostId = Date.now().toString();
+    const imageRef = ref(storage, `postImage/${uniquePostId}`);
+    await uploadBytes(imageRef, file);
+    const processedPhoto = await getDownloadURL(imageRef);
+
+    dispatch(
+      postAdd({
+        id: uniquePostId,
+        photo: processedPhoto,
+        location,
+        title: photoData.title,
+        place: photoData.place,
+        userId,
+      })
+    );
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -105,6 +145,10 @@ const CreatePostsScreen = () => {
           </Text>
 
           <TextInput
+            value={photoData.title}
+            onChangeText={(value) =>
+              setPhotoData((prevState) => ({ ...prevState, title: value }))
+            }
             style={[
               styles.textInput,
               { marginTop: 32, fontFamily: "RobotoMedium" },
@@ -115,6 +159,10 @@ const CreatePostsScreen = () => {
 
           <View>
             <TextInput
+              value={photoData.place}
+              onChangeText={(value) =>
+                setPhotoData((prevState) => ({ ...prevState, place: value }))
+              }
               style={[styles.textInput, { marginTop: 16, paddingLeft: 28 }]}
               placeholder="Місцевість..."
               placeholderTextColor={"#bdbdbd"}
