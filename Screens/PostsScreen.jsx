@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import Footer from "../Components/Footer";
 import PhotoItem from "../Components/PhotoItem";
-import { selectUserEmail, selectUserLogin } from "../redux/auth/authSelectors";
+import {
+  selectUserAvatar,
+  selectUserEmail,
+  selectUserLogin,
+} from "../redux/auth/authSelectors";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPosts } from "../redux/posts/postsOperations";
 import { selectAllPosts } from "../redux/posts/postsSelectors";
@@ -11,6 +15,7 @@ const PostsScreen = () => {
   const email = useSelector(selectUserEmail);
   const login = useSelector(selectUserLogin);
   const allPosts = useSelector(selectAllPosts);
+  const avatar = useSelector(selectUserAvatar);
 
   const dispatch = useDispatch();
 
@@ -28,7 +33,7 @@ const PostsScreen = () => {
 
       <View style={styles.main}>
         <View style={styles.userCard}>
-          <Image source={require("../assets/images/userAvatar.jpg")} />
+          <Image source={{ uri: avatar }} />
           <View>
             <Text style={styles.userCard.userName}>{login}</Text>
             <Text style={styles.userCard.userEmail}>{email}</Text>
@@ -41,9 +46,9 @@ const PostsScreen = () => {
           renderItem={({ item }) => (
             <PhotoItem
               key={item.id}
+              id={item.id}
               url={item.photo}
               title={item.title}
-              numComments={0}
               likes={0}
               place={item.place}
               location={item.location}

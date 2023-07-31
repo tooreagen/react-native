@@ -23,12 +23,28 @@ export const postAdd = createAsyncThunk(
 
 export const getAllPosts = createAsyncThunk(
   "posts/getAllPosts",
-    async (_, thunkAPI) => {
-        const data = [];
+  async (_, thunkAPI) => {
+    const data = [];
     try {
       const snapshot = await getDocs(collection(db, "posts"));
-        snapshot.forEach((doc) => data.push(doc.data()));
-        return data;
+      snapshot.forEach((doc) => data.push({ ...doc.data(), id: doc.id }));
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllComments = createAsyncThunk(
+  "posts/getAllComments",
+  async (postId, thunkAPI) => {
+    try {
+      const comments = [];
+      const snapshot = await getDocs(
+        collection(db, "posts", postId, "comments")
+      );
+      snapshot.forEach((doc) => comments.push({ ...doc.data() }));
+      return comments;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

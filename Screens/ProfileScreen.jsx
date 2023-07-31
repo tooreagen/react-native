@@ -6,18 +6,27 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import PhotoItem from "../Components/PhotoItem";
 import SvgAvatarAdd from "../assets/icons/add.svg";
 import SvgAvatarRemove from "../assets/icons/remove.svg";
 import SvgLogOut from "../assets/icons/log-out.svg";
 import { selectAllPosts } from "../redux/posts/postsSelectors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserAvatar, selectUserLogin } from "../redux/auth/authSelectors";
+import { userOut } from "../redux/auth/authOperations";
 
 const ProfileScreen = () => {
-  //   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const allPosts = useSelector(selectAllPosts);
+  const userName = useSelector(selectUserLogin);
+  const avatar = useSelector(selectUserAvatar);
+
+  const handleLogOut = () => {
+    dispatch(userOut());
+  };
 
   return (
     <ImageBackground
@@ -27,18 +36,23 @@ const ProfileScreen = () => {
       <View></View>
       <View style={styles.profileScreen}>
         <View style={styles.avatar}>
-          {true ? (
+          <Image source={{ uri: avatar }} />
+          {avatar ? (
             <SvgAvatarRemove style={styles.avatarSvg} width={25} height={25} />
           ) : (
             <SvgAvatarAdd style={styles.avatarSvg} width={25} height={25} />
           )}
         </View>
 
-        <TouchableOpacity style={styles.svgLogOut} activeOpacity={0.5}>
+        <TouchableOpacity
+          style={styles.svgLogOut}
+          activeOpacity={0.5}
+          onPress={handleLogOut}
+        >
           <SvgLogOut width={24} height={24} />
         </TouchableOpacity>
 
-        <Text style={styles.textHeading}>Natali Romanova</Text>
+        <Text style={styles.textHeading}>{userName}</Text>
 
         <FlatList
           style={styles.photosList}
@@ -46,9 +60,9 @@ const ProfileScreen = () => {
           renderItem={({ item }) => (
             <PhotoItem
               key={item.id}
+              id={item.id}
               url={item.photo}
               title={item.title}
-              numComments={0}
               likes={0}
               place={item.place}
               location={item.location}

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postAdd, getAllPosts } from "./postsOperations";
+import { postAdd, getAllPosts, getAllComments } from "./postsOperations";
 
 const initialState = {
   currentPhoto: null,
   allPosts: [],
+  allComments: [],
 };
 
 const handlePending = (state) => {
@@ -33,7 +34,14 @@ export const postsSlice = createSlice({
         state.allPosts = action.payload;
         state.isLoading = false;
       })
-      .addCase(getAllPosts.rejected, handleRejected),
+      .addCase(getAllPosts.rejected, handleRejected)
+      //getAllComments
+      .addCase(getAllComments.pending, handlePending)
+      .addCase(getAllComments.fulfilled, (state, action) => {
+        state.allComments = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getAllComments.rejected, handleRejected),
 });
 
 export default postsSlice;

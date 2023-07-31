@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -10,57 +10,55 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import SvgButtonSend from "../assets/icons/buttonSend.svg";
 import CommentsItem from "../Components/CommentsItem";
 import Footer from "../Components/Footer";
+import { db } from "../firebase.config";
+import { addDoc, collection } from "firebase/firestore";
+import {
+  selectUserLogin,
+  selectUserId,
+  selectUserAvatar,
+} from "../redux/auth/authSelectors";
+import { useEffect } from "react";
+import { getAllComments } from "../redux/posts/postsOperations";
+import { selectAllComments } from "../redux/posts/postsSelectors";
 
 const screenHeight = Dimensions.get("window").height;
 
-//delete array
-const commentsArr = [
-  {
-    id: "1",
-    avatar: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
-    commentText:
-      "Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!",
-    dateTime: "09 червня, 2020 | 08:40",
-  },
-  {
-    id: "2",
-    avatar: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
-    commentText:
-      "A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.",
-    dateTime: "09 червня, 2020 | 08:40",
-  },
-  {
-    id: "3",
-    avatar: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
-    commentText: "Thank you! That was very helpful!",
-    dateTime: "09 червня, 2020 | 08:40",
-  },
-  {
-    id: "4",
-    avatar: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
-    commentText:
-      "Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!",
-    dateTime: "09 червня, 2020 | 08:40",
-  },
-  {
-    id: "5",
-    avatar: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
-    commentText:
-      "A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.",
-    dateTime: "09 червня, 2020 | 08:40",
-  },
-  {
-    id: "6",
-    avatar: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
-    commentText: "Thank you! That was very helpful!",
-    dateTime: "09 червня, 2020 | 08:40",
-  },
-];
+const CommentsScreen = ({ route }) => {
+  const { postId, photoUrl } = route.params;
+  const userName = useSelector(selectUserLogin);
+  const userId = useSelector(selectUserId);
+  const userAvatar = useSelector(selectUserAvatar);
+  const allComments = useSelector(selectAllComments);
+  const [comment, setComment] = useState("");
 
-const CommentsScreen = () => {
+  const dispatch = useDispatch();
+
+  const createComment = async () => {
+    try {
+      const date = Date.now();
+      await addDoc(collection(db, "posts", postId, "comments"), {
+        id: date,
+        comment,
+        userName,
+        userId,
+        userAvatar,
+        date,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setComment("");
+    Keyboard.dismiss();
+  };
+
+  useEffect(() => {
+    dispatch(getAllComments(postId));
+  }, []);
+
   return (
     <View style={styles.container}>
       <Footer heading={"Коментарі"} backIconActive={true} />
@@ -68,18 +66,18 @@ const CommentsScreen = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.main}>
           <View style={styles.photoWrapper}>
-            <Image />
+            <Image source={{ uri: photoUrl }} />
           </View>
           <FlatList
             style={styles.commentsList}
-            data={commentsArr}
+            data={allComments}
             renderItem={({ item, index }) => (
               <CommentsItem
                 key={item.id}
                 index={index}
-                avatar={item.avatar}
-                comment={item.commentText}
-                dateTime={item.dateTime}
+                avatar={item.userAvatar}
+                comment={item.comment}
+                dateTime={item.date}
               />
             )}
             keyExtractor={(item) => item.id}
@@ -87,11 +85,13 @@ const CommentsScreen = () => {
 
           <View>
             <TextInput
+              value={comment}
+              onChangeText={(value) => setComment(value)}
               style={styles.textInput}
               placeholder="Коментувати..."
               placeholderTextColor={"#bdbdbd"}
             />
-            <TouchableOpacity activeOpacity={0.5}>
+            <TouchableOpacity activeOpacity={0.5} onPress={createComment}>
               <SvgButtonSend style={styles.svgButtonSend} />
             </TouchableOpacity>
           </View>

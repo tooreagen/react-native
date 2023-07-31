@@ -1,9 +1,12 @@
 import React from "react";
-import { StyleSheet, View, StatusBar, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Footer from "../Components/Footer";
 
-const CreatePostsScreen = () => {
+const MapScreen = ({ route }) => {
+  const { latitude = 50.451117, longitude = 30.52222 } =
+    route.params.location || {};
+
   return (
     <View style={styles.container}>
       <Footer heading={"Карта"} backIconActive={true} />
@@ -11,8 +14,8 @@ const CreatePostsScreen = () => {
       <MapView
         style={styles.map}
         region={{
-          latitude: 48.218708,
-          longitude: 24.28666,
+          latitude,
+          longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
@@ -21,7 +24,7 @@ const CreatePostsScreen = () => {
       >
         <Marker
           title="Photo location"
-          coordinate={{ latitude: 48.218708, longitude: 24.28666 }}
+          coordinate={{ latitude, longitude }}
           description="Hello, this is location photo"
         />
       </MapView>
@@ -41,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePostsScreen;
+export default MapScreen;

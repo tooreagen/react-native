@@ -7,7 +7,7 @@ const initialState = {
     login: "",
     email: "",
     password: "",
-    avatarUrl: "",
+    avatarUrl: "https://photoshablon.com/_ph/44/2/193521795.jpg?1687495594",
   },
   isLoggedIn: false,
   error: null,

@@ -4,10 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 import SvgComments from "../assets/icons/comments.svg";
 import SvgLikes from "../assets/icons/likes.svg";
 import SvgMapPin from "../assets/icons/map-pin.svg";
+import { selectAllComments } from "../redux/posts/postsSelectors";
+import { useSelector } from "react-redux";
 
 const PhotoItem = (props) => {
   const navigation = useNavigation();
-  const { url, title, numComments, likes, place } = props;
+  const allComments = useSelector(selectAllComments);
+  const { id, url, title, likes, place, location } = props;
 
   return (
     <View style={styles.photoContainer}>
@@ -20,11 +23,16 @@ const PhotoItem = (props) => {
           <View style={styles.commentsBlock}>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => navigation.navigate("CommentsScreen")}
+              onPress={() =>
+                navigation.navigate("CommentsScreen", {
+                  postId: id,
+                  photoUrl: url,
+                })
+              }
             >
               <SvgComments width={24} height={24} />
             </TouchableOpacity>
-            <Text style={styles.infoText}>{numComments}</Text>
+            <Text style={styles.infoText}>{allComments.length}</Text>
           </View>
 
           <View style={styles.likesBlock}>
@@ -36,7 +44,7 @@ const PhotoItem = (props) => {
         <View style={styles.locationBlock}>
           <TouchableOpacity
             activeOpacity={0.5}
-            onPress={() => navigation.navigate("MapScreen")}
+            onPress={() => navigation.navigate("MapScreen", { location })}
           >
             <SvgMapPin width={24} height={24} />
           </TouchableOpacity>
